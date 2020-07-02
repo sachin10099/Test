@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\User;
 use App\City;
 use App\State;
+use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Notifications\SendEmailNotification;
@@ -46,8 +47,8 @@ class UserController extends Controller
                 'name'          => 'required|max:150',
                 'email'         => 'required|email|max:225|unique:users',
                 'contact_number' => 'required|digits:10|unique:users',
-                'state'         => 'required',
-                'city'          => 'required',
+                'state'         => 'nullable',
+                'city'          => 'nullable',
                 'image'         => 'required|image|mimes:jpeg,png,jpg|max:2048',
                 'password'      => 'required'
             ]
@@ -107,6 +108,7 @@ class UserController extends Controller
 	* @link
 	*/
     public function dashboard() {
-    	return view('user.dashboard');
+    	$products = Product::get();
+    	return view('user.dashboard', compact('products'));
     }
 }

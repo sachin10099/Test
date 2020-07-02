@@ -22,11 +22,17 @@ class ProductController extends Controller
     	$image_link = $this->imageUpload($request);
         $product = Product::create(
         	[
-        		'product_id' => $product_id,
-        		'name'       => $request->name,
-        		'image'      => $image_link
+        		'product_id'    => $product_id,
+        		'name'          => $request->name,
+        		'product_image' => $image_link
         	]
         );
         return redirect('user/dashboard')->with('success', 'Product Added Successfully.');
+    }
+
+    public function deleteProduct(Request $request) {
+    	$picked = Product::find($request->id);
+    	$picked->delete();
+    	return 'Product Deleted Successfully.';
     }
 }

@@ -7,6 +7,8 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
 	<!-- Modal -->
@@ -36,6 +38,8 @@
 			            <span class="" style="color: red;">{{ $errors->first('image') }}</span>
 			        @endif
 				</div>
+				<center><input type="submit" class="btn btn-info" value="SAVE"></center>
+				<br>
 			</form>
 	      </div>
 	      <div class="modal-footer">
@@ -78,6 +82,70 @@
 				<button class="btn btn-info" data-toggle="modal" data-target="#myModal">Add Products</button>
 			</center>
 		</div>
+		<div class="row">
+			<center><h3>Products List</h3></center>
+			<table class="table">
+			    <thead>
+			      <tr>
+			        <th>PRODUCT ID</th>
+			        <th>PRODUCT NAME</th>
+			        <th>PRODUCT IMAGE</th>
+			        <th>ACTION</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			    	@if(count($products) == 0)
+			    		<center>No data(s) found.</center>
+			    	@else
+			    	@foreach($products as $product)
+			    		<tr>
+							<td>{{ $product->product_id }}</td>
+							<td>{{ $product->name }}</td>
+							<td><img src="{{ $product->product_image }}" alt="Product Image" style="width:20%;"></td>
+							<td>
+								<span style="cursor: pointer;" onclick="deleteProduct('{{ $product->id }}')">
+									<i class="fa fa-trash" aria-hidden="true" style="font-size: 20px;color:red;"></i>
+								</span>
+							</td>
+						</tr>
+					@endforeach
+			    	@endif
+			    </tbody>
+			</table>
+		</div>
 	</div>
 </body>
+<script type="text/javascript">
+	setTimeout(function(){ 
+        document.getElementById("hideAlert").style.display  = "none";
+    }, 8000);
+	function deleteProduct(id) {
+	    swal({
+	        title: "Are you sure?",
+	        text: "Delete this product.",
+	        icon: "warning",
+	        buttons: true,
+	        dangerMode: true,
+	    })
+	    .then((willDelete) => {
+	        if (willDelete) {
+	            $.ajax({
+	                method:'post',
+	                url   : "{{ url('product/delete') }}",
+	                data  : {
+	                    "_token": "{{ csrf_token() }}",
+	                    'id'    : id
+	                },
+	                success: function(data){
+	                    swal("", data, "success");
+	                    setTimeout(function() {
+	                    	location.reload();
+	                    }, 2000);
+	                }
+	            });
+	        }
+	    });
+	    
+	}
+</script>
 </html>
