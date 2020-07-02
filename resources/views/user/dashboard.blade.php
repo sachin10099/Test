@@ -53,7 +53,10 @@
 	    @endif
 		<div class="row" style="margin-top:50px;">
 			<div class="panel panel-default">
-				<div class="panel-heading">Welcome Back: {{ \Auth::user()->name }}</div>
+				<div class="panel-heading">
+					Welcome Back: {{ \Auth::user()->name }}
+					<a href="{{ url('logout') }}"><span class="pull-right">Logout</span></a>
+				</div>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-sm-6">

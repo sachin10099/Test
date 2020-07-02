@@ -24,6 +24,11 @@ Route::post('user/signup', 'User\UserController@createAccount')->name('user.crea
 Route::post('user/login', 'User\UserController@login')->name('user.login');
 
 Route::group(['middleware' => ['auth']], function () {
+	Route::get('logout', function() {
+   		\Auth::logout();
+        \Session::flush();
+        return redirect('/');
+	});
 	Route::get('user/dashboard', 'User\UserController@dashboard')->name('user.dashboard');
 	Route::post('product/upload', 'Product\ProductController@create')->name('product.create');
 });
