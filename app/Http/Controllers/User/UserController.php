@@ -46,20 +46,24 @@ class UserController extends Controller
                 'name'          => 'required|max:150',
                 'email'         => 'required|email|max:225|unique:users',
                 'contact_number' => 'required|digits:10|unique:users',
-                'state'         => 'nullable',
-                'city'          => 'nullable',
+                'state'         => 'required',
+                'city'          => 'required',
                 'image'         => 'required|image|mimes:jpeg,png,jpg|max:2048',
                 'password'      => 'required'
             ]
         );
         $image_link = $this->imageUpload($request);
+        $unique_name = 'USER'.rand(1000,9999);
         $user = User::create(
         	[
         		'name'           => $request->name,
         		'email'          => $request->email,
         		'contact_number' => $request->contact_number,
         		'image'          => $image_link,
-        		'password'       => \Hash::make($request->password)
+        		'state_id'       => $request->state,
+        		'city_id'        => $request->city,
+        		'password'       => \Hash::make($request->password),
+        		'unique_id'      => $unique_name
         	]
         );
         // $user->notify(New SendEmailNotification($user));

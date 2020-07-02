@@ -22,6 +22,7 @@ class AddColumsToUsers extends Migration
             $table->foreign('city_id')
               ->references('id')->on('cities')
               ->onDelete('cascade');
+            $table->string('unique_id')->after('city_id');
         });
     }
 
@@ -37,6 +38,7 @@ class AddColumsToUsers extends Migration
             $table->dropColumn('state_id');
             $table->dropForeign(['city_id']);
             $table->dropColumn('city_id');
+            $table->dropColumn('unique_id');
         });
     }
 }

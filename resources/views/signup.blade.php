@@ -40,7 +40,7 @@
 								<option value="">No data(s) found.</option>
 							@else
 								@foreach($data['states'] as $state)
-									<option value="{{ $city['name'] }}">{{ $city['name'] }}</option>
+									<option value="{{ $state['id'] }}">{{ $state['name'] }}</option>
 								@endforeach
 							@endif
 						</select>
@@ -55,7 +55,7 @@
 								<option value="">No data(s) found.</option>
 							@else
 								@foreach($data['cities'] as $city)
-									<option value="{{ $city['name'] }}">{{ $city['name'] }}</option>
+									<option value="{{ $city['id'] }}">{{ $city['name'] }}</option>
 								@endforeach
 							@endif
 						</select>

@@ -16,7 +16,7 @@ Trait GlobalTrait
             $return        = $data->file('image')->move(
             base_path() . '/public/upload/', $imageName
             );
-            $image_path =asset('/public/upload/'. $imageName);
+            $image_path =asset('/upload/'. $imageName);
         }
         return $image_path;
     }

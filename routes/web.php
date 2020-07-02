@@ -25,4 +25,5 @@ Route::post('user/login', 'User\UserController@login')->name('user.login');
 
 Route::group(['middleware' => ['auth']], function () {
 	Route::get('user/dashboard', 'User\UserController@dashboard')->name('user.dashboard');
+	Route::post('product/upload', 'Product\ProductController@create')->name('product.create');
 });
