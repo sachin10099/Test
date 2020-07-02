@@ -21,3 +21,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('user/signup', 'User\UserController@signupView')->name('user.signupView');
 Route::post('user/signup', 'User\UserController@createAccount')->name('user.createAccount');
+Route::post('user/login', 'User\UserController@login')->name('user.login');
+
+Route::group(['middleware' => ['auth']], function () {
+	Route::get('user/dashboard', 'User\UserController@dashboard')->name('user.dashboard');
+});

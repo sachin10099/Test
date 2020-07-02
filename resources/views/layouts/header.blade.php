@@ -56,4 +56,9 @@
 	
 	</div>
 </body>
+<script type="text/javascript">
+	setTimeout(function(){ 
+        document.getElementById("hideAlert").style.display  = "none";
+    }, 8000);
+</script>
 </html>
